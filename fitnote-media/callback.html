@@ -1,0 +1,17 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>연결 완료</title><link rel="stylesheet" href="style.css"></head>
+<body><main>
+<span class="tag">66 핏노트</span>
+<h1 id="t">연결 확인 중</h1>
+<p id="m"></p>
+<div class="box" id="c" hidden></div>
+<button id="b" hidden style="padding:10px 18px;border:0;border-radius:10px;background:#F5C842;font-weight:700;cursor:pointer">코드 복사</button>
+<p><small>이 코드는 몇 분 안에 만료되고, 앱 비밀키 없이는 쓸 수 없습니다. 비서에게만 전달하고 다른 곳에는 올리지 마세요.</small></p>
+<script>
+const p=new URLSearchParams(location.search),code=p.get('code'),err=p.get('error');
+const t=document.getElementById('t'),m=document.getElementById('m'),c=document.getElementById('c'),b=document.getElementById('b');
+if(code){t.textContent='연결 완료';m.textContent='아래 코드를 복사해서 비서(다온)에게 보내 주세요.';c.textContent=code;c.hidden=false;b.hidden=false;
+b.onclick=()=>{navigator.clipboard.writeText(code).then(()=>b.textContent='복사됨',()=>{const r=document.createRange();r.selectNodeContents(c);getSelection().removeAllRanges();getSelection().addRange(r);});};}
+else if(err){t.textContent='연결 실패';m.textContent='오류: '+err+' '+(p.get('error_description')||'');}
+else{t.textContent='대기 중';m.textContent='틱톡 로그인 후 이 페이지로 돌아오면 코드가 표시됩니다.';}
+</script>
+</main></body></html>
